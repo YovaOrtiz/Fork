@@ -14,7 +14,9 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProjectsController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const projects_service_1 = require("./projects.service");
+const create_project_dto_1 = require("./dto/create-project.dto");
 let ProjectsController = class ProjectsController {
     projectsService;
     constructor(projectsService) {
@@ -26,7 +28,7 @@ let ProjectsController = class ProjectsController {
     getProjectById(id) {
         return this.projectsService.getProjectById(id);
     }
-    createProject(data) {
+    async create(data) {
         return this.projectsService.createProject(data);
     }
     updateProject(id, data) {
@@ -53,11 +55,12 @@ __decorate([
 ], ProjectsController.prototype, "getProjectById", null);
 __decorate([
     (0, common_1.Post)(),
+    (0, swagger_1.ApiBody)({ type: create_project_dto_1.CreateProjectDto }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], ProjectsController.prototype, "createProject", null);
+    __metadata("design:paramtypes", [create_project_dto_1.CreateProjectDto]),
+    __metadata("design:returntype", Promise)
+], ProjectsController.prototype, "create", null);
 __decorate([
     (0, common_1.Put)(':id'),
     __param(0, (0, common_1.Param)('id')),
@@ -74,6 +77,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProjectsController.prototype, "deleteProject", null);
 exports.ProjectsController = ProjectsController = __decorate([
+    (0, swagger_1.ApiTags)('projects'),
     (0, common_1.Controller)('projects'),
     __metadata("design:paramtypes", [projects_service_1.ProjectsService])
 ], ProjectsController);

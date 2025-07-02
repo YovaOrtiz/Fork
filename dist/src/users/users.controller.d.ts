@@ -5,13 +5,13 @@ export declare class UsersController {
     constructor(usersService: UsersService);
     getUsers(): import(".prisma/client").Prisma.PrismaPromise<{
         id: number;
-        email: string;
-        password: string;
         name: string;
-        username: string;
-        role: string;
         createdAt: Date;
         updatedAt: Date;
+        email: string;
+        password: string;
+        username: string;
+        role: string;
         resetToken: string | null;
         resetTokenExp: Date | null;
         emailToken: string | null;
@@ -19,13 +19,13 @@ export declare class UsersController {
     }[]>;
     createUser(user: CreateUserDto): Promise<{
         id: number;
-        email: string;
-        password: string;
         name: string;
-        username: string;
-        role: string;
         createdAt: Date;
         updatedAt: Date;
+        email: string;
+        password: string;
+        username: string;
+        role: string;
         resetToken: string | null;
         resetTokenExp: Date | null;
         emailToken: string | null;
@@ -33,13 +33,13 @@ export declare class UsersController {
     }>;
     updateUser(id: string, updates: any): Promise<{
         id: number;
-        email: string;
-        password: string;
         name: string;
-        username: string;
-        role: string;
         createdAt: Date;
         updatedAt: Date;
+        email: string;
+        password: string;
+        username: string;
+        role: string;
         resetToken: string | null;
         resetTokenExp: Date | null;
         emailToken: string | null;
@@ -47,13 +47,13 @@ export declare class UsersController {
     }>;
     deleteUser(id: string): Promise<{
         id: number;
-        email: string;
-        password: string;
         name: string;
-        username: string;
-        role: string;
         createdAt: Date;
         updatedAt: Date;
+        email: string;
+        password: string;
+        username: string;
+        role: string;
         resetToken: string | null;
         resetTokenExp: Date | null;
         emailToken: string | null;

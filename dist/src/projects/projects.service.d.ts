@@ -1,69 +1,26 @@
+import { PrismaService } from '../prisma.service';
+import { Prisma, Project, Area } from '@prisma/client';
 export declare class ProjectsService {
-    getProjects(filters: any): {
-        id: number;
-        name: string;
-        client: string;
-        description: string;
-        startDate: string;
-        expectedEndDate: string;
-        overallProgress: number;
-        priority: string;
-        status: string;
-        createdAt: string;
-        updatedAt: string;
-        createdBy: string;
-        lastUpdatedBy: string;
-        currentStage: string;
-        areas: any[];
-        budget: number;
-        hoursWorked: number;
-        internalCost: number;
-        profitability: number;
-    }[];
-    getProjectById(id: string): {
-        id: number;
-        name: string;
-        client: string;
-        description: string;
-        startDate: string;
-        expectedEndDate: string;
-        overallProgress: number;
-        priority: string;
-        status: string;
-        createdAt: string;
-        updatedAt: string;
-        createdBy: string;
-        lastUpdatedBy: string;
-        currentStage: string;
-        areas: any[];
-        budget: number;
-        hoursWorked: number;
-        internalCost: number;
-        profitability: number;
-    };
-    createProject(data: any): any;
-    updateProject(id: string, data: any): {
-        id: number;
-        name: string;
-        client: string;
-        description: string;
-        startDate: string;
-        expectedEndDate: string;
-        overallProgress: number;
-        priority: string;
-        status: string;
-        createdAt: string;
-        updatedAt: string;
-        createdBy: string;
-        lastUpdatedBy: string;
-        currentStage: string;
-        areas: any[];
-        budget: number;
-        hoursWorked: number;
-        internalCost: number;
-        profitability: number;
-    };
-    deleteProject(id: string): {
+    private prisma;
+    constructor(prisma: PrismaService);
+    getProjects(filters?: Prisma.ProjectWhereInput): Promise<(Project & {
+        areas: Area[];
+    })[]>;
+    getProjectById(id: string): Promise<Project & {
+        areas: Area[];
+    } | null>;
+    createProject(data: Prisma.ProjectCreateInput): Promise<Project & {
+        areas: Area[];
+    }>;
+    updateProject(id: string, data: Prisma.ProjectUpdateInput): Promise<Project & {
+        areas: Area[];
+    }>;
+    deleteProject(id: string): Promise<{
         deleted: boolean;
-    };
+    }>;
+    addAreaToProject(projectId: string, areaData: Prisma.AreaCreateInput): Promise<Area>;
+    updateArea(areaId: string, data: Prisma.AreaUpdateInput): Promise<Area>;
+    deleteArea(areaId: string): Promise<{
+        deleted: boolean;
+    }>;
 }

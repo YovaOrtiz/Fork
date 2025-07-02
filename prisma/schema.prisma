@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  // output   = "../generated/prisma"
 }
 
 datasource db {
@@ -31,4 +30,54 @@ model User {
   // Para confirmación de email
   emailToken     String?   @unique
   emailConfirmed Boolean   @default(false)
+}
+
+model Project {
+  id               String   @id @default(uuid())
+  name             String
+  client           String
+  description      String
+  startDate        DateTime
+  expectedEndDate  DateTime
+  priority         ProjectPriority
+  status           ProjectStatus
+  budget           Float
+  salesPrice       Float    // Nuevo campo: precio de venta
+  profitability    Float
+  internalCost     Float
+  overallProgress  Float
+  currentStage     String
+  areas            Area[]
+  createdBy        String
+  updatedBy        String   // Nuevo campo: último usuario que actualizó
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Area {
+  id             String   @id @default(uuid())
+  name           String
+  status         String
+  progress       Float
+  responsible    String
+  dueDate        DateTime
+  estimatedHours Float
+  hoursWorked    Float
+  project        Project  @relation(fields: [projectId], references: [id])
+  projectId      String
+}
+
+enum ProjectPriority {
+  low
+  medium
+  high
+  critical
+}
+
+enum ProjectStatus {
+  planning
+  active
+  on_hold
+  completed
+  cancelled
 }

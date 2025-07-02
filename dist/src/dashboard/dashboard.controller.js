@@ -17,17 +17,62 @@ let DashboardController = class DashboardController {
     constructor(dashboardService) {
         this.dashboardService = dashboardService;
     }
-    getDashboard() {
-        return this.dashboardService.getDashboard();
+    getKpis() {
+        return this.dashboardService.getKpis();
+    }
+    getStats() {
+        return this.dashboardService.getStats();
+    }
+    getTopProjects() {
+        return this.dashboardService.getTopProjects();
+    }
+    getRecentActivity() {
+        return this.dashboardService.getRecentActivity();
+    }
+    getAreaWorkload() {
+        return this.dashboardService.getAreaWorkload();
+    }
+    getSalesMetrics() {
+        return this.dashboardService.getSalesMetrics();
     }
 };
 exports.DashboardController = DashboardController;
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.Get)('kpis'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], DashboardController.prototype, "getDashboard", null);
+], DashboardController.prototype, "getKpis", null);
+__decorate([
+    (0, common_1.Get)('stats'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], DashboardController.prototype, "getStats", null);
+__decorate([
+    (0, common_1.Get)('top-projects'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], DashboardController.prototype, "getTopProjects", null);
+__decorate([
+    (0, common_1.Get)('recent-activity'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], DashboardController.prototype, "getRecentActivity", null);
+__decorate([
+    (0, common_1.Get)('area-workload'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], DashboardController.prototype, "getAreaWorkload", null);
+__decorate([
+    (0, common_1.Get)('sales-metrics'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], DashboardController.prototype, "getSalesMetrics", null);
 exports.DashboardController = DashboardController = __decorate([
     (0, common_1.Controller)('dashboard'),
     __metadata("design:paramtypes", [dashboard_service_1.DashboardService])

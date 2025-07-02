@@ -8,16 +8,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
 const projects_module_1 = require("./projects/projects.module");
 const auth_module_1 = require("./auth/auth.module");
 const users_module_1 = require("./users/users.module");
+const dashboard_module_1 = require("./dashboard/dashboard.module");
 const tasks_module_1 = require("./tasks/tasks.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [tasks_module_1.TasksModule, projects_module_1.ProjectsModule, auth_module_1.AuthModule, users_module_1.UsersModule],
+        imports: [
+            config_1.ConfigModule.forRoot({ isGlobal: true }),
+            tasks_module_1.TasksModule,
+            projects_module_1.ProjectsModule,
+            auth_module_1.AuthModule,
+            users_module_1.UsersModule,
+            dashboard_module_1.DashboardModule,
+        ],
         controllers: [],
     })
 ], AppModule);

@@ -1,6 +1,9 @@
 import { Controller, Get, Post, Put, Delete, Param, Body, Query } from '@nestjs/common';
+import { ApiTags, ApiBody } from '@nestjs/swagger';
 import { ProjectsService } from './projects.service';
+import { CreateProjectDto } from './dto/create-project.dto';
 
+@ApiTags('projects')
 @Controller('projects')
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
@@ -16,8 +19,9 @@ export class ProjectsController {
   }
 
   @Post()
-  createProject(@Body() data: any) {
-    return this.projectsService.createProject(data);
+  @ApiBody({ type: CreateProjectDto })
+  async create(@Body() data: CreateProjectDto) {
+    return this.projectsService.createProject(data as any);
   }
 
   @Put(':id')

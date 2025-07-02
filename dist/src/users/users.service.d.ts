@@ -4,13 +4,13 @@ export declare class UsersService {
     private prisma;
     saveResetToken(userId: number, token: string): Promise<{
         id: number;
-        email: string;
-        password: string;
         name: string;
-        username: string;
-        role: string;
         createdAt: Date;
         updatedAt: Date;
+        email: string;
+        password: string;
+        username: string;
+        role: string;
         resetToken: string | null;
         resetTokenExp: Date | null;
         emailToken: string | null;
@@ -18,13 +18,13 @@ export declare class UsersService {
     }>;
     findByResetToken(token: string): Promise<{
         id: number;
-        email: string;
-        password: string;
         name: string;
-        username: string;
-        role: string;
         createdAt: Date;
         updatedAt: Date;
+        email: string;
+        password: string;
+        username: string;
+        role: string;
         resetToken: string | null;
         resetTokenExp: Date | null;
         emailToken: string | null;
@@ -32,13 +32,13 @@ export declare class UsersService {
     }>;
     updatePassword(userId: number, hash: string): Promise<{
         id: number;
-        email: string;
-        password: string;
         name: string;
-        username: string;
-        role: string;
         createdAt: Date;
         updatedAt: Date;
+        email: string;
+        password: string;
+        username: string;
+        role: string;
         resetToken: string | null;
         resetTokenExp: Date | null;
         emailToken: string | null;
@@ -46,13 +46,13 @@ export declare class UsersService {
     }>;
     clearResetToken(userId: number): Promise<{
         id: number;
-        email: string;
-        password: string;
         name: string;
-        username: string;
-        role: string;
         createdAt: Date;
         updatedAt: Date;
+        email: string;
+        password: string;
+        username: string;
+        role: string;
         resetToken: string | null;
         resetTokenExp: Date | null;
         emailToken: string | null;
@@ -60,13 +60,13 @@ export declare class UsersService {
     }>;
     saveEmailToken(userId: number, token: string): Promise<{
         id: number;
-        email: string;
-        password: string;
         name: string;
-        username: string;
-        role: string;
         createdAt: Date;
         updatedAt: Date;
+        email: string;
+        password: string;
+        username: string;
+        role: string;
         resetToken: string | null;
         resetTokenExp: Date | null;
         emailToken: string | null;
@@ -74,13 +74,13 @@ export declare class UsersService {
     }>;
     findByEmailToken(token: string): Promise<{
         id: number;
-        email: string;
-        password: string;
         name: string;
-        username: string;
-        role: string;
         createdAt: Date;
         updatedAt: Date;
+        email: string;
+        password: string;
+        username: string;
+        role: string;
         resetToken: string | null;
         resetTokenExp: Date | null;
         emailToken: string | null;
@@ -88,13 +88,13 @@ export declare class UsersService {
     }>;
     confirmEmail(userId: number): Promise<{
         id: number;
-        email: string;
-        password: string;
         name: string;
-        username: string;
-        role: string;
         createdAt: Date;
         updatedAt: Date;
+        email: string;
+        password: string;
+        username: string;
+        role: string;
         resetToken: string | null;
         resetTokenExp: Date | null;
         emailToken: string | null;
@@ -103,13 +103,13 @@ export declare class UsersService {
     constructor(prisma: PrismaService);
     getUsers(): import(".prisma/client").Prisma.PrismaPromise<{
         id: number;
-        email: string;
-        password: string;
         name: string;
-        username: string;
-        role: string;
         createdAt: Date;
         updatedAt: Date;
+        email: string;
+        password: string;
+        username: string;
+        role: string;
         resetToken: string | null;
         resetTokenExp: Date | null;
         emailToken: string | null;
@@ -117,13 +117,13 @@ export declare class UsersService {
     }[]>;
     findByEmail(email: string): Promise<{
         id: number;
-        email: string;
-        password: string;
         name: string;
-        username: string;
-        role: string;
         createdAt: Date;
         updatedAt: Date;
+        email: string;
+        password: string;
+        username: string;
+        role: string;
         resetToken: string | null;
         resetTokenExp: Date | null;
         emailToken: string | null;
@@ -131,13 +131,13 @@ export declare class UsersService {
     }>;
     findByUsername(username: string): Promise<{
         id: number;
-        email: string;
-        password: string;
         name: string;
-        username: string;
-        role: string;
         createdAt: Date;
         updatedAt: Date;
+        email: string;
+        password: string;
+        username: string;
+        role: string;
         resetToken: string | null;
         resetTokenExp: Date | null;
         emailToken: string | null;
@@ -150,13 +150,13 @@ export declare class UsersService {
         username: string;
     }): Promise<{
         id: number;
-        email: string;
-        password: string;
         name: string;
-        username: string;
-        role: string;
         createdAt: Date;
         updatedAt: Date;
+        email: string;
+        password: string;
+        username: string;
+        role: string;
         resetToken: string | null;
         resetTokenExp: Date | null;
         emailToken: string | null;
@@ -164,13 +164,13 @@ export declare class UsersService {
     }>;
     createUser(user: CreateUserDto): Promise<{
         id: number;
-        email: string;
-        password: string;
         name: string;
-        username: string;
-        role: string;
         createdAt: Date;
         updatedAt: Date;
+        email: string;
+        password: string;
+        username: string;
+        role: string;
         resetToken: string | null;
         resetTokenExp: Date | null;
         emailToken: string | null;
@@ -178,13 +178,13 @@ export declare class UsersService {
     }>;
     updateUser(id: string, updates: any): Promise<{
         id: number;
-        email: string;
-        password: string;
         name: string;
-        username: string;
-        role: string;
         createdAt: Date;
         updatedAt: Date;
+        email: string;
+        password: string;
+        username: string;
+        role: string;
         resetToken: string | null;
         resetTokenExp: Date | null;
         emailToken: string | null;
@@ -192,13 +192,13 @@ export declare class UsersService {
     }>;
     deleteUser(id: string): Promise<{
         id: number;
-        email: string;
-        password: string;
         name: string;
-        username: string;
-        role: string;
         createdAt: Date;
         updatedAt: Date;
+        email: string;
+        password: string;
+        username: string;
+        role: string;
         resetToken: string | null;
         resetTokenExp: Date | null;
         emailToken: string | null;
