@@ -1,0 +1,1 @@
+{"version":3,"file":"update-channel.dto.js","sourceRoot":"","sources":["../../../../src/notifications/dto/update-channel.dto.ts"],"names":[],"mappings":";;;AACA,6BAAwB;AAEX,QAAA,mBAAmB,GAAG,OAAC,CAAC,MAAM,CAAC;IAC1C,MAAM,EAAE,OAAC,CAAC,GAAG,EAAE,CAAC,QAAQ,EAAE;IAC1B,OAAO,EAAE,OAAC,CAAC,OAAO,EAAE,CAAC,QAAQ,EAAE;CAChC,CAAC,CAAC"}

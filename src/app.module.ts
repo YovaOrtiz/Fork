@@ -8,6 +8,7 @@ import { UsersModule } from './users/users.module';
 // import { PaymentsModule } from './payments/payments.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import {TasksModule}from "./tasks/tasks.module"
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import {TasksModule}from "./tasks/tasks.module"
     AuthModule,
     UsersModule,
     DashboardModule,
+    NotificationsModule,
   ],
   controllers: [],
 })

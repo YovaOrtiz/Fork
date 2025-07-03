@@ -24,8 +24,8 @@ export declare class DashboardController {
         client: string;
         description: string;
         progress: number;
-        status: import(".prisma/client").$Enums.ProjectStatus;
-        priority: import(".prisma/client").$Enums.ProjectPriority;
+        status: string;
+        priority: string;
         isOverdue: boolean;
         isAtRisk: boolean;
     }[]>;
@@ -35,7 +35,7 @@ export declare class DashboardController {
         activityType: string;
         description: string;
         date: Date;
-        areas: string[];
+        areas: any[];
     }[]>;
     getAreaWorkload(): Promise<{
         area: string;

@@ -18,7 +18,7 @@ let DashboardService = class DashboardService {
         this.projectsService = projectsService;
     }
     async getKpis() {
-        const projects = await this.projectsService.getProjects();
+        const projects = (await this.projectsService.getProjects());
         const now = new Date();
         const kpis = {
             active: projects.filter(p => p.status === 'active').length,
@@ -32,10 +32,10 @@ let DashboardService = class DashboardService {
         return kpis;
     }
     async getStats() {
-        const projects = await this.projectsService.getProjects();
+        const projects = (await this.projectsService.getProjects());
         const totalBudget = projects.reduce((sum, p) => sum + (p.budget ?? 0), 0);
-        const totalSales = projects.reduce((sum, p) => sum + (p.salesPrice ?? 0), 0);
-        const totalProfit = projects.reduce((sum, p) => sum + ((p.salesPrice ?? 0) - (p.budget ?? 0)), 0);
+        const totalSales = projects.reduce((sum, p) => sum + (typeof p.salesPrice === 'number' ? p.salesPrice : 0), 0);
+        const totalProfit = projects.reduce((sum, p) => sum + ((typeof p.salesPrice === 'number' ? p.salesPrice : 0) - (typeof p.budget === 'number' ? p.budget : 0)), 0);
         const margin = totalSales > 0 ? (totalProfit / totalSales) * 100 : 0;
         const goals = {
             annualSales: 1000000,
@@ -51,9 +51,10 @@ let DashboardService = class DashboardService {
         };
     }
     async getTopProjects() {
-        const projects = await this.projectsService.getProjects();
+        const projects = (await this.projectsService.getProjects());
+        const priorityOrder = { critical: 4, high: 3, medium: 2, low: 1 };
         const top = [...projects]
-            .sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0))
+            .sort((a, b) => (priorityOrder[b.priority] ?? 0) - (priorityOrder[a.priority] ?? 0))
             .slice(0, 5)
             .map(p => {
             const now = new Date();
@@ -73,12 +74,12 @@ let DashboardService = class DashboardService {
         return top;
     }
     async getRecentActivity() {
-        const projects = await this.projectsService.getProjects();
+        const projects = (await this.projectsService.getProjects());
         const recent = [...projects]
             .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
             .slice(0, 5)
             .map(p => {
-            const user = p.updatedBy ?? p.createdBy ?? 'user';
+            const user = typeof p.updatedBy === 'string' && p.updatedBy.length > 0 ? p.updatedBy : (typeof p.createdBy === 'string' ? p.createdBy : 'user');
             let activityType = 'Actualización';
             if (p.status === 'completed')
                 activityType = 'Finalización';
@@ -98,7 +99,7 @@ let DashboardService = class DashboardService {
         return recent;
     }
     async getAreaWorkload() {
-        const projects = await this.projectsService.getProjects();
+        const projects = (await this.projectsService.getProjects());
         const areaMap = {};
         projects.forEach(p => {
             (p.areas ?? []).forEach(a => {

@@ -8,47 +8,90 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NotificationsService = void 0;
 const common_1 = require("@nestjs/common");
-const mockNotifications = [
-    { id: 1, message: 'Tarea asignada: Diseñar interfaz', userId: 2, read: false, createdAt: new Date().toISOString() },
-    { id: 2, message: 'Nuevo comentario en proyecto', userId: 1, read: false, createdAt: new Date().toISOString() },
-];
+const client_1 = require("@prisma/client");
+const prisma = new client_1.PrismaClient();
 let NotificationsService = class NotificationsService {
-    getNotifications() {
-        return mockNotifications;
+    async getNotifications(filter) {
+        const { userId, type, priority, channel, read, search, from, to, orderBy, order, skip, take } = filter;
+        return prisma.notification.findMany({
+            where: {
+                userId,
+                type,
+                priority,
+                channel,
+                read,
+                createdAt: from || to ? {
+                    ...(from ? { gte: new Date(from) } : {}),
+                    ...(to ? { lte: new Date(to) } : {}),
+                } : undefined,
+                ...(search ? {
+                    OR: [
+                        { title: { contains: search, mode: 'insensitive' } },
+                        { message: { contains: search, mode: 'insensitive' } },
+                    ]
+                } : {})
+            },
+            orderBy: orderBy ? { [orderBy]: order || 'desc' } : { createdAt: 'desc' },
+            skip,
+            take,
+        });
     }
-    getNotificationById(id) {
-        return mockNotifications.find(n => n.id === Number(id));
+    async getNotificationById(id) {
+        return prisma.notification.findUnique({ where: { id } });
     }
-    createNotification(data) {
-        const newNotification = {
-            ...data,
-            id: mockNotifications.length + 1,
-            read: false,
-            createdAt: new Date().toISOString(),
-        };
-        mockNotifications.push(newNotification);
-        return newNotification;
+    async createNotification(data) {
+        if (!data.userId)
+            throw new Error('userId is required');
+        return prisma.notification.create({ data: data });
     }
-    updateNotification(id, data) {
-        const idx = mockNotifications.findIndex(n => n.id === Number(id));
-        if (idx === -1)
-            return null;
-        mockNotifications[idx] = { ...mockNotifications[idx], ...data };
-        return mockNotifications[idx];
+    async updateNotification(id, data) {
+        return prisma.notification.update({ where: { id }, data });
     }
-    deleteNotification(id) {
-        const idx = mockNotifications.findIndex(n => n.id === Number(id));
-        if (idx === -1)
-            return null;
-        mockNotifications.splice(idx, 1);
-        return { deleted: true };
+    async deleteNotification(id) {
+        return prisma.notification.delete({ where: { id } });
     }
-    markAsRead(id) {
-        const idx = mockNotifications.findIndex(n => n.id === Number(id));
-        if (idx === -1)
-            return null;
-        mockNotifications[idx].read = true;
-        return mockNotifications[idx];
+    async markAsRead(id) {
+        return prisma.notification.update({ where: { id }, data: { read: true, readAt: new Date() } });
+    }
+    async markAllAsRead(userId) {
+        return prisma.notification.updateMany({ where: { userId, read: false }, data: { read: true, readAt: new Date() } });
+    }
+    async getChannels(userId) {
+        return prisma.notificationChannel.findMany({ where: { userId } });
+    }
+    async createChannel(data) {
+        if (!data.userId)
+            throw new Error('userId is required');
+        return prisma.notificationChannel.create({ data: data });
+    }
+    async updateChannel(id, data) {
+        return prisma.notificationChannel.update({ where: { id }, data });
+    }
+    async deleteChannel(id) {
+        return prisma.notificationChannel.delete({ where: { id } });
+    }
+    async getSettings(userId) {
+        return prisma.notificationSetting.findMany({ where: { userId } });
+    }
+    async createSetting(data) {
+        if (!data.userId)
+            throw new Error('userId is required');
+        return prisma.notificationSetting.create({ data: data });
+    }
+    async updateSetting(id, data) {
+        return prisma.notificationSetting.update({ where: { id }, data });
+    }
+    async deleteSetting(id) {
+        return prisma.notificationSetting.delete({ where: { id } });
+    }
+    async getStats(userId) {
+        const [total, unread, urgent, today] = await Promise.all([
+            prisma.notification.count({ where: { userId } }),
+            prisma.notification.count({ where: { userId, read: false } }),
+            prisma.notification.count({ where: { userId, priority: 'urgent' } }),
+            prisma.notification.count({ where: { userId, createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) } } })
+        ]);
+        return { total, unread, urgent, today };
     }
 };
 exports.NotificationsService = NotificationsService;

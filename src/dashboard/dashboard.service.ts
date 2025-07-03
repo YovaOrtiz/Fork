@@ -2,13 +2,35 @@ import { Injectable } from '@nestjs/common';
 import { ProjectsService } from '../projects/projects.service';
 import { Prisma } from '@prisma/client';
 
+type ProjectWithExtras = {
+  id: string;
+  name: string;
+  client: string;
+  description: string;
+  startDate: Date;
+  expectedEndDate: Date;
+  priority: string;
+  status: string;
+  budget: number;
+  salesPrice?: number;
+  profitability: number;
+  internalCost: number;
+  overallProgress: number;
+  currentStage: string;
+  areas?: any[];
+  createdBy: string;
+  updatedBy?: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 @Injectable()
 export class DashboardService {
   constructor(private projectsService: ProjectsService) {}
 
   // 1. KPIs
   async getKpis() {
-    const projects = await this.projectsService.getProjects();
+    const projects = (await this.projectsService.getProjects()) as ProjectWithExtras[];
     const now = new Date();
     const kpis = {
       active: projects.filter(p => p.status === 'active').length,
@@ -24,10 +46,10 @@ export class DashboardService {
 
   // 2. Stats
   async getStats() {
-    const projects = await this.projectsService.getProjects();
+    const projects = (await this.projectsService.getProjects()) as ProjectWithExtras[];
     const totalBudget = projects.reduce((sum, p) => sum + (p.budget ?? 0), 0);
-    const totalSales = projects.reduce((sum, p) => sum + (p.salesPrice ?? 0), 0);
-    const totalProfit = projects.reduce((sum, p) => sum + ((p.salesPrice ?? 0) - (p.budget ?? 0)), 0);
+    const totalSales = projects.reduce((sum, p) => sum + (typeof p.salesPrice === 'number' ? p.salesPrice : 0), 0);
+    const totalProfit = projects.reduce((sum, p) => sum + ((typeof p.salesPrice === 'number' ? p.salesPrice : 0) - (typeof p.budget === 'number' ? p.budget : 0)), 0);
     const margin = totalSales > 0 ? (totalProfit / totalSales) * 100 : 0;
     // Metas simuladas
     const goals = {
@@ -46,10 +68,12 @@ export class DashboardService {
 
   // 3. Top Projects
   async getTopProjects() {
-    const projects = await this.projectsService.getProjects();
+    const projects = (await this.projectsService.getProjects()) as ProjectWithExtras[];
     // Suponiendo que priority es un enum/string, ajusta si es necesario
+    // Orden de prioridad: critical > high > medium > low
+    const priorityOrder = { critical: 4, high: 3, medium: 2, low: 1 };
     const top = [...projects]
-      .sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0))
+      .sort((a, b) => (priorityOrder[b.priority as keyof typeof priorityOrder] ?? 0) - (priorityOrder[a.priority as keyof typeof priorityOrder] ?? 0))
       .slice(0, 5)
       .map(p => {
         const now = new Date();
@@ -71,13 +95,13 @@ export class DashboardService {
 
   // 4. Recent Activity
   async getRecentActivity() {
-    const projects = await this.projectsService.getProjects();
+    const projects = (await this.projectsService.getProjects()) as ProjectWithExtras[];
     const recent = [...projects]
       .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
       .slice(0, 5)
       .map(p => {
         // Simulación de usuario y tipo de actividad
-        const user = p.updatedBy ?? p.createdBy ?? 'user';
+        const user = typeof p.updatedBy === 'string' && p.updatedBy.length > 0 ? p.updatedBy : (typeof p.createdBy === 'string' ? p.createdBy : 'user');
         let activityType = 'Actualización';
         if (p.status === 'completed') activityType = 'Finalización';
         else if ((p.overallProgress ?? 0) < 50) activityType = 'Riesgo';
@@ -96,7 +120,7 @@ export class DashboardService {
 
   // 5. Area Workload
   async getAreaWorkload() {
-    const projects = await this.projectsService.getProjects();
+    const projects = (await this.projectsService.getProjects()) as ProjectWithExtras[];
     const areaMap: Record<string, { count: number; total: number; totalWorked: number; }> = {};
     projects.forEach(p => {
       (p.areas ?? []).forEach(a => {
