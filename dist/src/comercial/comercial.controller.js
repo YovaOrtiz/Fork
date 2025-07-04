@@ -14,26 +14,16 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ComercialController = void 0;
 const common_1 = require("@nestjs/common");
-const comercial_service_1 = require("./comercial.service");
 let ComercialController = class ComercialController {
-    comercialService;
-    constructor(comercialService) {
-        this.comercialService = comercialService;
-    }
     getComercial() {
-        return this.comercialService.getComercial();
     }
     getComercialById(id) {
-        return this.comercialService.getComercialById(id);
     }
     createComercial(data) {
-        return this.comercialService.createComercial(data);
     }
     updateComercial(id, data) {
-        return this.comercialService.updateComercial(id, data);
     }
     deleteComercial(id) {
-        return this.comercialService.deleteComercial(id);
     }
 };
 exports.ComercialController = ComercialController;
@@ -73,7 +63,6 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ComercialController.prototype, "deleteComercial", null);
 exports.ComercialController = ComercialController = __decorate([
-    (0, common_1.Controller)('comercial'),
-    __metadata("design:paramtypes", [comercial_service_1.ComercialService])
+    (0, common_1.Controller)('comercial')
 ], ComercialController);
 //# sourceMappingURL=comercial.controller.js.map

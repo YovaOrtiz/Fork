@@ -1,32 +1,32 @@
 import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
-import { ComercialService } from './comercial.service';
+
 
 @Controller('comercial')
 export class ComercialController {
-  constructor(private readonly comercialService: ComercialService) {}
+
 
   @Get()
   getComercial() {
-    return this.comercialService.getComercial();
+    // Aquí irá la lógica modularizada para leads, quotes, etc.
   }
 
   @Get(':id')
   getComercialById(@Param('id') id: string) {
-    return this.comercialService.getComercialById(id);
+    // Aquí irá la lógica modularizada para leads, quotes, etc.
   }
 
   @Post()
   createComercial(@Body() data: any) {
-    return this.comercialService.createComercial(data);
+    // Aquí irá la lógica modularizada para leads, quotes, etc.
   }
 
   @Put(':id')
   updateComercial(@Param('id') id: string, @Body() data: any) {
-    return this.comercialService.updateComercial(id, data);
+    // Aquí irá la lógica modularizada para leads, quotes, etc.
   }
 
   @Delete(':id')
   deleteComercial(@Param('id') id: string) {
-    return this.comercialService.deleteComercial(id);
+    // Aquí irá la lógica modularizada para leads, quotes, etc.
   }
 }

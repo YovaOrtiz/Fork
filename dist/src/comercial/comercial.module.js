@@ -8,15 +8,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ComercialModule = void 0;
 const common_1 = require("@nestjs/common");
-const comercial_controller_1 = require("./comercial.controller");
-const comercial_service_1 = require("./comercial.service");
+const leads_controller_1 = require("./leads.controller");
+const quotes_controller_1 = require("./quotes.controller");
+const orders_controller_1 = require("./orders.controller");
+const prices_controller_1 = require("./prices.controller");
+const automation_controller_1 = require("./automation.controller");
+const overview_controller_1 = require("./overview.controller");
 let ComercialModule = class ComercialModule {
 };
 exports.ComercialModule = ComercialModule;
 exports.ComercialModule = ComercialModule = __decorate([
     (0, common_1.Module)({
-        controllers: [comercial_controller_1.ComercialController],
-        providers: [comercial_service_1.ComercialService],
+        controllers: [
+            leads_controller_1.LeadsController,
+            quotes_controller_1.QuotesController,
+            orders_controller_1.OrdersController,
+            prices_controller_1.PricesController,
+            automation_controller_1.AutomationController,
+            overview_controller_1.OverviewController,
+        ],
+        providers: [],
     })
 ], ComercialModule);
 //# sourceMappingURL=comercial.module.js.map
