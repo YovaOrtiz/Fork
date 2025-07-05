@@ -15,7 +15,7 @@ let ComprasLogisticaModule = class ComprasLogisticaModule {
 exports.ComprasLogisticaModule = ComprasLogisticaModule;
 exports.ComprasLogisticaModule = ComprasLogisticaModule = __decorate([
     (0, common_1.Module)({
-        controllers: [compras_logistica_controller_1.ComprasLogisticaController],
+        controllers: [compras_logistica_controller_1.PurchaseOrdersController],
         providers: [compras_logistica_service_1.ComprasLogisticaService],
     })
 ], ComprasLogisticaModule);

@@ -12,68 +12,91 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ComprasLogisticaController = void 0;
+exports.PurchaseOrdersController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const compras_logistica_service_1 = require("./compras-logistica.service");
-let ComprasLogisticaController = class ComprasLogisticaController {
+const purchase_order_dto_1 = require("./dto/purchase-order.dto");
+let PurchaseOrdersController = class PurchaseOrdersController {
     comprasLogisticaService;
     constructor(comprasLogisticaService) {
         this.comprasLogisticaService = comprasLogisticaService;
     }
-    getComprasLogistica() {
+    getAll() {
         return this.comprasLogisticaService.getComprasLogistica();
     }
-    getCompraLogisticaById(id) {
+    getById(id) {
         return this.comprasLogisticaService.getCompraLogisticaById(id);
     }
-    createCompraLogistica(data) {
+    create(data) {
         return this.comprasLogisticaService.createCompraLogistica(data);
     }
-    updateCompraLogistica(id, data) {
+    update(id, data) {
         return this.comprasLogisticaService.updateCompraLogistica(id, data);
     }
-    deleteCompraLogistica(id) {
+    delete(id) {
         return this.comprasLogisticaService.deleteCompraLogistica(id);
     }
 };
-exports.ComprasLogisticaController = ComprasLogisticaController;
+exports.PurchaseOrdersController = PurchaseOrdersController;
 __decorate([
     (0, common_1.Get)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Obtener todos los pedidos de compra' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Lista de pedidos de compra' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], ComprasLogisticaController.prototype, "getComprasLogistica", null);
+], PurchaseOrdersController.prototype, "getAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Obtener un pedido de compra por ID' }),
+    (0, swagger_1.ApiParam)({ name: 'id', type: String }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Pedido encontrado' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Pedido no encontrado' }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], ComprasLogisticaController.prototype, "getCompraLogisticaById", null);
+], PurchaseOrdersController.prototype, "getById", null);
 __decorate([
     (0, common_1.Post)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Crear un pedido de compra' }),
+    (0, swagger_1.ApiBody)({ type: purchase_order_dto_1.PurchaseOrderDto }),
+    (0, swagger_1.ApiResponse)({ status: 201, description: 'Pedido creado' }),
+    (0, swagger_1.ApiResponse)({ status: 400, description: 'Error de validación' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [purchase_order_dto_1.PurchaseOrderDto]),
     __metadata("design:returntype", void 0)
-], ComprasLogisticaController.prototype, "createCompraLogistica", null);
+], PurchaseOrdersController.prototype, "create", null);
 __decorate([
     (0, common_1.Put)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Actualizar un pedido de compra' }),
+    (0, swagger_1.ApiParam)({ name: 'id', type: String }),
+    (0, swagger_1.ApiBody)({ type: purchase_order_dto_1.PurchaseOrderDto }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Pedido actualizado' }),
+    (0, swagger_1.ApiResponse)({ status: 400, description: 'Error de validación' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Pedido no encontrado' }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [String, purchase_order_dto_1.PurchaseOrderDto]),
     __metadata("design:returntype", void 0)
-], ComprasLogisticaController.prototype, "updateCompraLogistica", null);
+], PurchaseOrdersController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Eliminar un pedido de compra' }),
+    (0, swagger_1.ApiParam)({ name: 'id', type: String }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Pedido eliminado' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Pedido no encontrado' }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], ComprasLogisticaController.prototype, "deleteCompraLogistica", null);
-exports.ComprasLogisticaController = ComprasLogisticaController = __decorate([
-    (0, common_1.Controller)('compras-logistica'),
+], PurchaseOrdersController.prototype, "delete", null);
+exports.PurchaseOrdersController = PurchaseOrdersController = __decorate([
+    (0, swagger_1.ApiTags)('PurchaseOrders'),
+    (0, common_1.Controller)('purchase-orders'),
     __metadata("design:paramtypes", [compras_logistica_service_1.ComprasLogisticaService])
-], ComprasLogisticaController);
+], PurchaseOrdersController);
 //# sourceMappingURL=compras-logistica.controller.js.map

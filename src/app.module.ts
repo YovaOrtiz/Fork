@@ -11,6 +11,7 @@ import {TasksModule}from "./tasks/tasks.module"
 import { NotificationsModule } from './notifications/notifications.module';
 import { SolicitudesModule } from './solicitudes/solicitudes.module';
 import { ComercialModule } from './comercial/comercial.module';
+import { ComprasLogisticaModule } from './compras-logistica/compras-logistica.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { ComercialModule } from './comercial/comercial.module';
     NotificationsModule,
     SolicitudesModule,
     ComercialModule,
+    ComprasLogisticaModule,
   ],
   controllers: [],
 })

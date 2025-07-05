@@ -1,8 +1,9 @@
 import { ComprasLogisticaService } from './compras-logistica.service';
-export declare class ComprasLogisticaController {
+import { PurchaseOrderDto } from './dto/purchase-order.dto';
+export declare class PurchaseOrdersController {
     private readonly comprasLogisticaService;
     constructor(comprasLogisticaService: ComprasLogisticaService);
-    getComprasLogistica(): {
+    getAll(): {
         id: number;
         tipo: string;
         descripcion: string;
@@ -11,7 +12,7 @@ export declare class ComprasLogisticaController {
         fecha: string;
         estado: string;
     }[];
-    getCompraLogisticaById(id: string): {
+    getById(id: string): {
         id: number;
         tipo: string;
         descripcion: string;
@@ -20,8 +21,8 @@ export declare class ComprasLogisticaController {
         fecha: string;
         estado: string;
     };
-    createCompraLogistica(data: any): any;
-    updateCompraLogistica(id: string, data: any): {
+    create(data: PurchaseOrderDto): any;
+    update(id: string, data: PurchaseOrderDto): {
         id: number;
         tipo: string;
         descripcion: string;
@@ -30,7 +31,7 @@ export declare class ComprasLogisticaController {
         fecha: string;
         estado: string;
     };
-    deleteCompraLogistica(id: string): {
+    delete(id: string): {
         deleted: boolean;
     };
 }

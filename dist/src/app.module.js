@@ -17,6 +17,7 @@ const tasks_module_1 = require("./tasks/tasks.module");
 const notifications_module_1 = require("./notifications/notifications.module");
 const solicitudes_module_1 = require("./solicitudes/solicitudes.module");
 const comercial_module_1 = require("./comercial/comercial.module");
+const compras_logistica_module_1 = require("./compras-logistica/compras-logistica.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -32,6 +33,7 @@ exports.AppModule = AppModule = __decorate([
             notifications_module_1.NotificationsModule,
             solicitudes_module_1.SolicitudesModule,
             comercial_module_1.ComercialModule,
+            compras_logistica_module_1.ComprasLogisticaModule,
         ],
         controllers: [],
     })
