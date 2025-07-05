@@ -1,33 +1,13 @@
+import { PrismaService } from '../prisma.service';
+import { Prisma, PurchaseOrder } from '@prisma/client';
 export declare class ComprasLogisticaService {
-    getComprasLogistica(): {
-        id: number;
-        tipo: string;
-        descripcion: string;
-        proveedor: string;
-        monto: number;
-        fecha: string;
-        estado: string;
-    }[];
-    getCompraLogisticaById(id: string): {
-        id: number;
-        tipo: string;
-        descripcion: string;
-        proveedor: string;
-        monto: number;
-        fecha: string;
-        estado: string;
-    };
-    createCompraLogistica(data: any): any;
-    updateCompraLogistica(id: string, data: any): {
-        id: number;
-        tipo: string;
-        descripcion: string;
-        proveedor: string;
-        monto: number;
-        fecha: string;
-        estado: string;
-    };
-    deleteCompraLogistica(id: string): {
+    private prisma;
+    constructor(prisma: PrismaService);
+    getComprasLogistica(): Promise<PurchaseOrder[]>;
+    getCompraLogisticaById(id: string): Promise<PurchaseOrder | null>;
+    createCompraLogistica(data: Prisma.PurchaseOrderCreateInput): Promise<PurchaseOrder>;
+    updateCompraLogistica(id: string, data: Prisma.PurchaseOrderUpdateInput): Promise<PurchaseOrder | null>;
+    deleteCompraLogistica(id: string): Promise<{
         deleted: boolean;
-    };
+    }>;
 }

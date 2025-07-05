@@ -15,7 +15,6 @@ export declare const PurchaseOrderSchema: z.ZodObject<{
     overallStatus: z.ZodEnum<["pending", "in_production", "in_transit", "delivered", "completed", "cancelled"]>;
     notes: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    notes?: string;
     productName?: string;
     quantity?: number;
     unitPrice?: number;
@@ -25,8 +24,8 @@ export declare const PurchaseOrderSchema: z.ZodObject<{
     internalStatus?: "completed" | "pending" | "printed" | "packaged" | "quality_check";
     externalShippingStatus?: "pending_pickup" | "in_transit" | "delivered" | "exception" | "not_applicable";
     overallStatus?: "completed" | "cancelled" | "pending" | "in_transit" | "delivered" | "in_production";
+    notes?: string;
 }, {
-    notes?: string;
     productName?: string;
     quantity?: number;
     unitPrice?: number;
@@ -36,6 +35,7 @@ export declare const PurchaseOrderSchema: z.ZodObject<{
     internalStatus?: "completed" | "pending" | "printed" | "packaged" | "quality_check";
     externalShippingStatus?: "pending_pickup" | "in_transit" | "delivered" | "exception" | "not_applicable";
     overallStatus?: "completed" | "cancelled" | "pending" | "in_transit" | "delivered" | "in_production";
+    notes?: string;
 }>;
 export declare class PurchaseOrderDto {
     productName: string;

@@ -1,41 +1,40 @@
 import { Injectable } from '@nestjs/common';
-
-// Mock temporal para pruebas
-const mockComprasLogistica = [
-  { id: 1, tipo: 'Compra', descripcion: 'Compra de insumos', proveedor: 'Proveedor A', monto: 2000, fecha: '2025-06-12', estado: 'Pendiente' },
-  { id: 2, tipo: 'Logística', descripcion: 'Envío de productos', proveedor: 'Transportes B', monto: 800, fecha: '2025-06-14', estado: 'Completado' },
-];
+import { PrismaService } from '../prisma.service';
+import { Prisma, PurchaseOrder } from '@prisma/client';
 
 @Injectable()
 export class ComprasLogisticaService {
-  getComprasLogistica() {
-    return mockComprasLogistica;
+  constructor(private prisma: PrismaService) {}
+
+  async getComprasLogistica(): Promise<PurchaseOrder[]> {
+    return this.prisma.purchaseOrder.findMany();
   }
 
-  getCompraLogisticaById(id: string) {
-    return mockComprasLogistica.find(c => c.id === Number(id));
+  async getCompraLogisticaById(id: string): Promise<PurchaseOrder | null> {
+    return this.prisma.purchaseOrder.findUnique({ where: { id } });
   }
 
-  createCompraLogistica(data: any) {
-    const newItem = {
-      ...data,
-      id: mockComprasLogistica.length + 1,
-    };
-    mockComprasLogistica.push(newItem);
-    return newItem;
+  async createCompraLogistica(data: Prisma.PurchaseOrderCreateInput): Promise<PurchaseOrder> {
+    return this.prisma.purchaseOrder.create({ data });
   }
 
-  updateCompraLogistica(id: string, data: any) {
-    const idx = mockComprasLogistica.findIndex(c => c.id === Number(id));
-    if (idx === -1) return null;
-    mockComprasLogistica[idx] = { ...mockComprasLogistica[idx], ...data };
-    return mockComprasLogistica[idx];
+  async updateCompraLogistica(id: string, data: Prisma.PurchaseOrderUpdateInput): Promise<PurchaseOrder | null> {
+    try {
+      return await this.prisma.purchaseOrder.update({ where: { id }, data });
+    } catch (e) {
+      return null;
+    }
   }
 
-  deleteCompraLogistica(id: string) {
-    const idx = mockComprasLogistica.findIndex(c => c.id === Number(id));
-    if (idx === -1) return null;
-    mockComprasLogistica.splice(idx, 1);
+  async deleteCompraLogistica(id: string): Promise<{ deleted: boolean }> {
+    try {
+      await this.prisma.purchaseOrder.delete({ where: { id } });
+      return { deleted: true };
+    } catch (e) {
+      return { deleted: false };
+    }
+  }
+}
     return { deleted: true };
   }
 }
